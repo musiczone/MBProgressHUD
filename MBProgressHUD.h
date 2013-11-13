@@ -124,6 +124,17 @@ typedef void (^MBProgressHUDCompletionBlock)();
 + (MB_INSTANCETYPE)showHUDAddedTo:(UIView *)view animated:(BOOL)animated;
 
 /**
+ *  创建自定义HUD,显示toast,几秒后自动消失,也可以触摸消失
+ *
+ *  @param view      HUD将要被添加的视图
+ *  @param imageName toast显示所需要的图片.nil表示,不显示图片
+ *  @param text      toast显示的提示文字
+ *
+ *  @return MBProgressHUD
+ */
++ (MBProgressHUD *)showToastAddedTo:(UIView *)view imageName:(NSString *)imageName labelText:(NSString *)text;
+
+/**
  * Finds the top-most HUD subview and hides it. The counterpart to this method is showHUDAddedTo:animated:.
  *
  * @param view The view that is going to be searched for a HUD subview.

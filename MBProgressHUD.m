@@ -129,6 +129,40 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	return MB_AUTORELEASE(hud);
 }
 
+/**
+ *  创建自定义HUD,显示toast,几秒后自动消失,也可以触摸消失
+ *
+ *  @param view      HUD将要被添加的视图
+ *  @param imageName toast显示所需要的图片.nil表示,不显示图片
+ *  @param text      toast显示的提示文字
+ *
+ *  @return MBProgressHUD
+ */
++ (MBProgressHUD *)showToastAddedTo:(UIView *)view imageName:(NSString *)imageName labelText:(NSString *)text{
+    if (view == nil) {
+        view = [UIApplication sharedApplication].keyWindow;
+    }
+    
+    MBProgressHUD *HUD  = [[self alloc] initWithView:view];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapTouch:)];
+    [HUD addGestureRecognizer:tap];
+    
+    [view addSubview:HUD];
+    if (imageName) {
+        HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+    }
+        // Set custom view mode
+    HUD.mode = MBProgressHUDModeCustomView;
+    
+        //        HUD.delegate = self;
+    HUD.labelText = text;
+    
+    [HUD show:YES];
+    [HUD hide:YES afterDelay:2.f];
+    
+    return MB_AUTORELEASE(HUD);
+}
+
 + (BOOL)hideHUDForView:(UIView *)view animated:(BOOL)animated {
 	MBProgressHUD *hud = [self HUDForView:view];
 	if (hud != nil) {
