@@ -397,6 +397,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 }
 
 - (void)done {
+	[NSObject cancelPreviousPerformRequestsWithTarget:self];
 	isFinished = YES;
 	self.alpha = 0.0f;
 	if (removeFromSuperViewOnHide) {
